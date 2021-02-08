@@ -1,0 +1,32 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] BoxWithClothers = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            int RackCapacity = int.Parse(Console.ReadLine());
+            int currCapacity = RackCapacity;
+            int RackCount = 1;
+            Stack<int> Stack = new Stack<int>(BoxWithClothers);
+            while (Stack.Count > 0)
+            {
+                if (currCapacity - Stack.Peek() >= 0)
+                {
+                    currCapacity -= Stack.Pop();
+                }
+                else
+                {
+                    currCapacity = RackCapacity - Stack.Pop();
+                    RackCount++;
+                }
+            }
+            Console.WriteLine(RackCount);
+        }
+    }
+}
