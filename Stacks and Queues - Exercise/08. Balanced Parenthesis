@@ -1,0 +1,61 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine().Trim();
+            if (input != null && input != string.Empty)
+            {
+                Queue<char> queue = new Queue<char>();
+                Stack<char> stack = new Stack<char>();
+                foreach (char item in input)
+                {
+                    if (!char.IsWhiteSpace(item))
+                    {
+                        queue.Enqueue(item);
+                        stack.Push(item);
+                    }
+                }
+                bool isBalanced = true;
+                for (int i = 0; i < input.Length / 2; i++)
+                {
+                    char CurrStack = stack.Pop();
+                    char CurrQueue = queue.Dequeue();
+                    if (CurrQueue == '{' && CurrStack == '}')
+                    {
+                    }
+                    else if (CurrQueue == '(' && CurrStack == ')')
+                    {
+                    }
+                    else if (CurrQueue == '[' && CurrStack == ']')
+                    {
+                    }
+                    else
+                    {
+                        isBalanced = false;
+                        break;
+                    }
+                }
+                if (isBalanced)
+                {
+                    Console.WriteLine("YES");
+                }
+                else
+                {
+                    Console.WriteLine("NO");
+                }
+            }
+            else
+            {
+                Console.WriteLine("NO");
+            }
+        }
+    }
+}
