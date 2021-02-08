@@ -1,0 +1,51 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] CollOfSongs = Console.ReadLine().Split(", ");
+            Queue<string> Songs = new Queue<string>(CollOfSongs);
+            while (Songs.Count > 0)
+            {
+                string[] comand = Console.ReadLine().Split(" ");
+                if (comand[0] == "Play")
+                {
+                    Songs.Dequeue();
+                }
+                else if (comand[0] == "Add")
+                {
+                    string currsong = GetRange(comand);
+                    if (Songs.Contains(currsong))
+                    {
+                        Console.WriteLine($"{currsong} is already contained!");
+                    }
+                    else
+                    {
+                        Songs.Enqueue(currsong);
+                    }
+                }
+                else if (comand[0] == "Show")
+                {
+                    Console.WriteLine(string.Join(", ", Songs));
+                }
+            }
+            Console.WriteLine("No more songs!");
+        }
+        public static string GetRange(string[] input)
+        {
+            string currsong = "";
+            for (int i = 1; i < input.Length; i++)
+            {
+                currsong += input[i] + " ";
+            }
+            return currsong.TrimEnd();
+        }
+    }
+}
