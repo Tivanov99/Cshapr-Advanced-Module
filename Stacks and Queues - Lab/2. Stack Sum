@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StackAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Stack<int> stack = new Stack<int>();
+            int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                stack.Push(arr[i]);
+            }
+            while (true)
+            {
+                string comands = Console.ReadLine().ToLower();
+                if (comands.Contains("end"))
+                {
+                    break;
+                }
+                else
+                {
+                    string[] splited = comands.Split();
+                    if (splited[0] == "add")
+                    {
+                        int firstnum = int.Parse(splited[1]);
+                        int secondnum = int.Parse(splited[2]);
+                        stack.Push(firstnum);
+                        stack.Push(secondnum);
+                    }
+                    else if (splited[0] == "remove")
+                    {
+                        int removedCount = int.Parse(splited[1]);
+                        if(removedCount<=stack.Count)
+                        {
+                            for (int i = 0; i < removedCount; i++)
+                            {
+                                stack.Pop();
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("Sum: " + stack.Sum());
+        }
+    }
+}
