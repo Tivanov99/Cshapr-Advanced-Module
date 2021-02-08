@@ -1,0 +1,59 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int priceOfBullet = int.Parse(Console.ReadLine());
+            int SizeOFGunBarrel = int.Parse(Console.ReadLine());
+            int[] Bullets = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            int[] Locksinput = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            int Intelegence = int.Parse(Console.ReadLine());
+            Stack<int> Barrel = new Stack<int>(Bullets);
+            int countOfShots = 0;
+            bool bulletsifFinish = false;
+            Queue<int> Locks = new Queue<int>(Locksinput);
+            while (true)
+            {
+                if (Barrel.Peek() <= Locks.Peek())
+                {
+                    Console.WriteLine("Bang!");
+                    Barrel.Pop();
+                    Locks.Dequeue();
+                    countOfShots++;
+                }
+                else
+                {
+                    Console.WriteLine("Ping!");
+                    Barrel.Pop();
+                    countOfShots++;
+
+                }
+                if (countOfShots % SizeOFGunBarrel == 0 && Barrel.Count > 0)
+                {
+                    Console.WriteLine("Reloading!");
+                }
+                if (Locks.Count == 0)
+                {
+                    Console.WriteLine($"{Barrel.Count} bullets left. Earned ${(Intelegence - (countOfShots * priceOfBullet))}");
+                    break;
+                }
+                if (Barrel.Count == 0)
+                {
+                    bulletsifFinish = true;
+                    break;
+                }
+            }
+            if (bulletsifFinish)
+            {
+                Console.WriteLine($"Couldn't get through. Locks left: {Locks.Count}");
+            }
+        }
+    }
+}
