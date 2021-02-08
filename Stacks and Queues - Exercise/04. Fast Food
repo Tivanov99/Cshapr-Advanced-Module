@@ -1,0 +1,44 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int quantity = int.Parse(Console.ReadLine());
+            int[] NumOrders = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            Queue<int> Orders = new Queue<int>(NumOrders);
+            int biggestOrder = 0;
+            bool isNotEnough = false;
+            while (Orders.Count > 0)
+            {
+                if (quantity - Orders.Peek() >= 0)
+                {
+                    if (Orders.Peek() > biggestOrder)
+                    {
+                        biggestOrder = Orders.Peek();
+                    }
+                    quantity -= Orders.Dequeue();
+                }
+                else
+                {
+                    isNotEnough = true;
+                    break;
+                }
+            }
+            Console.WriteLine(biggestOrder);
+            if (!isNotEnough)
+            {
+                Console.WriteLine("Orders complete");
+            }
+            else
+            {
+                Console.WriteLine($"Orders left: {string.Join(" ", Orders)}");
+            }
+        }
+    }
+}
