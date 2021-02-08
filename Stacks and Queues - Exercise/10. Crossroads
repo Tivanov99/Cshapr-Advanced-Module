@@ -1,0 +1,88 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int GreenLightSeconds = int.Parse(Console.ReadLine());
+            int freeWindow = int.Parse(Console.ReadLine());
+            int PassedCars = 0;
+            int GREENSECONDS = GreenLightSeconds;
+            bool isCrash = false;
+            Queue<string> queue = new Queue<string>();
+            while (true)
+            {
+                string cars = Console.ReadLine();
+                if (cars == "END")
+                {
+                    break;
+                }
+                else if (cars == "green")
+                {
+                    GREENSECONDS = GreenLightSeconds;
+                    while (true)
+                    {
+                        if (GREENSECONDS > 0 && queue.Count > 0)
+                        {
+                            string currCar = queue.Peek();
+                            int currLength = queue.Peek().Length;
+                            if (GREENSECONDS > 0)
+                            {
+                                if (GREENSECONDS >= currLength)
+                                {
+                                    GREENSECONDS -= currLength;
+                                    PassedCars++;
+                                    queue.Dequeue();
+                                }
+                                else
+                                {
+                                    int TimeLeft = GREENSECONDS;
+                                    GREENSECONDS = 0;
+                                    TimeLeft += freeWindow;
+                                    if (TimeLeft >= currLength)
+                                    {
+                                        PassedCars++;
+                                        queue.Dequeue();
+                                        TimeLeft -= currLength;
+                                    }
+                                    else
+                                    {
+                                        isCrash = true;
+                                        char LeftChar = currCar[TimeLeft];
+                                        Console.WriteLine("A crash happened!");
+                                        Console.WriteLine($"{currCar} was hit at {LeftChar}.");
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    queue.Enqueue(cars);
+
+                }
+                if (isCrash)
+                {
+                    break;
+                }
+            }
+            if (!isCrash)
+            {
+                Console.WriteLine("Everyone is safe.");
+                Console.WriteLine($"{PassedCars} total cars passed the crossroads.");
+            }
+        }
+    }
+}
