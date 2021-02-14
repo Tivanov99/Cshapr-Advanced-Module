@@ -1,0 +1,16 @@
+using System;
+using System.Linq;
+
+namespace Functional_Progrmaming
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            Func<string, bool> transfer = t => t[0] == t.ToUpper()[0];
+            string[] result = input.Split(" ", StringSplitOptions.RemoveEmptyEntries).Where(transfer).ToArray();
+            Console.WriteLine(string.Join("\n",result));
+        }
+    }
+}
