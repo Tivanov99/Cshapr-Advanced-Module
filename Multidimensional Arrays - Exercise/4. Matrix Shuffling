@@ -1,0 +1,66 @@
+using System;
+using System.Linq;
+
+namespace ExerciseArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] size = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+
+            string[,] matrix = new string[size[0], size[1]];
+
+            for (int rows = 0; rows < size[0]; rows++)
+            {
+                string[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                for (int cols = 0; cols < size[1]; cols++)
+                {
+                    matrix[rows, cols] = input[cols];
+                }
+            }
+            while (true)
+            {
+                string[] comands = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (comands[0] == "swap" && comands.Length == 5)
+                {
+                    int row1 = int.Parse(comands[1]);
+                    int col1 = int.Parse(comands[2]);
+                    int row2 = int.Parse(comands[3]);
+                    int col2 = int.Parse(comands[4]);
+                    if (row1 >= 0 && row1 < size[0] && col1 >= 0 && col1 < size[1] && row2 >= 0 && row2 < size[0] && col2 >= 0 && col2 < size[1])
+                    {
+                        string FirstPlace = matrix[row1, col1];
+                        string SecondPlace = matrix[row2, col2];
+                        matrix[row1, col1] = SecondPlace;
+                        matrix[row2, col2] = FirstPlace;
+                        PrintMatrix(matrix);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input!");
+                    }
+                }
+                else if(comands[0]=="END")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input!");
+                }
+            }
+        }
+        public static void PrintMatrix(string[,] matrix)
+        {
+            for (int rows = 0; rows < matrix.GetLength(0); rows++)
+            {
+                for (int cols = 0; cols < matrix.GetLength(1); cols++)
+                {
+                    Console.Write(matrix[rows, cols] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
