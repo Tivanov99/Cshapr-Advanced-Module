@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionaries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<double, int> colleciton = new Dictionary<double, int>();
+            double[] input = Console.ReadLine().Split(' ').Select(double.Parse).ToArray();
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (colleciton.ContainsKey(input[i]))
+                {
+                    colleciton[input[i]]++;
+                }
+                else
+                {
+                    colleciton.Add(input[i], 1);
+                }
+            }
+            foreach (var item in colleciton)
+            {
+                Console.WriteLine($"{item.Key} - {item.Value} times");
+            }
+        }
+    }
+}
