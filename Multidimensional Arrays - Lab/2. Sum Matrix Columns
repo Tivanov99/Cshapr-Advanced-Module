@@ -1,0 +1,29 @@
+using System;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input = Console.ReadLine().Split(", ").Select(int.Parse).ToArray();
+            int ROWS = input[0];
+            int COLS = input[1];
+            int[,] matrix = new int[ROWS + 1, input[1]];
+            for (int row = 0; row < ROWS; row++)
+            {
+                input = Console.ReadLine().Split(" ").Select(int.Parse).ToArray();
+                for (int cols = 0; cols < COLS; cols++)
+                {
+                    matrix[row, cols] = input[cols];
+                    matrix[ROWS, cols] += input[cols];
+                }
+            }
+            for (int i = 0; i < COLS; i++)
+            {
+                Console.WriteLine(matrix[ROWS, i]);
+            }
+        }
+    }
+}
