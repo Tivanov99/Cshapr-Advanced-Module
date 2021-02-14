@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionariesExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            HashSet<int> First = new HashSet<int>();
+            HashSet<int> Second = new HashSet<int>();
+            int[] input = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int FirstCount = input[0];
+            int SecondCount = input[1];
+
+            for (int i = 0; i < (FirstCount + SecondCount); i++)
+            {
+                int currNum = int.Parse(Console.ReadLine());
+                if (i < FirstCount)
+                {
+                    First.Add(currNum);
+                }
+                else
+                {
+                    Second.Add(currNum);
+                }
+            }
+            HashSet<int> Result = new HashSet<int>();
+            foreach (int item in First)
+            {
+                if(Second.Contains(item))
+                {
+                    Result.Add(item);
+                }
+            }
+            Console.WriteLine(string.Join(" ",Result));
+        }
+    }
+}
