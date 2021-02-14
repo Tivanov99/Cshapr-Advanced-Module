@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FunctionalProgrammingExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> input = Console.ReadLine().Split().Select(int.Parse).ToList();
+            List<int> coppy = new List<int>();
+            int divining = int.Parse(Console.ReadLine());
+            Predicate<int> predicate = x => x % divining != 0;
+            foreach (var item in input)
+            {
+                if (predicate(item))
+                {
+                    coppy.Add(item);
+                }
+            }
+            Func<List<int>, int, Predicate<int>, List<int>> func = (input, divining, predicate) =>
+           {
+               List<int> list = new List<int>();
+               for (int i = input.Count - 1; i >= 0; i--)
+               {
+                   if(predicate(input[i]))
+                   {
+                       list.Add(input[i]);
+                   }
+               }
+               return list;
+           };
+            List<int> result = func(input, divining, predicate);
+            Console.WriteLine(string.Join(" ",result));
+        }
+    }
+}
