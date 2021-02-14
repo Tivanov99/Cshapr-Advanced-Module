@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionariesExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            SortedDictionary<char, int> result = new SortedDictionary<char, int>();
+            for (int i = 0; i < input.Length; i++)
+            {
+                char Currchar = input[i];
+                if(result.ContainsKey(Currchar))
+                {
+                    result[Currchar]++;
+                }
+                else
+                {
+                    result.Add(Currchar, 1);
+                }
+            }
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.Key + ": "+item.Value + " time/s");
+            }
+        }
+    }
+}
