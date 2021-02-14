@@ -1,0 +1,87 @@
+using System;
+using System.Linq;
+using System.Text;
+
+namespace ExerciseArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            int[][] matrix = new int[size][];
+            for (int rows = 0; rows < size; rows++)
+            {
+                int[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                matrix[rows] = new int[input.Length];
+
+                for (int cols = 0; cols < input.Length; cols++)
+                {
+                    matrix[rows][cols] = input[cols];
+                }
+                if (rows >= 1)
+                {
+                    if (matrix[rows - 1].Length == matrix[rows].Length)
+                    {
+                        //look 
+                        for (int ROWS = rows - 1; ROWS <= rows; ROWS++)
+                        {
+                            for (int COLS = 0; COLS < matrix[ROWS].Length; COLS++)
+                            {
+
+                                matrix[ROWS][COLS] = matrix[ROWS][COLS] * 2;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int ROWS = rows - 1; ROWS <= rows; ROWS++)
+                        {
+                            for (int COLS = 0; COLS < matrix[ROWS].Length; COLS++)
+                            {
+                                int result = matrix[ROWS][COLS] / 2;
+                                matrix[ROWS][COLS] = result;
+                            }
+                        }
+                    }
+                }
+            }
+            while (true)
+            {
+                string[] comands = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (comands[0] == "End")
+                {
+                    for (int rows = 0; rows < size; rows++)
+                    {
+                        for (int cols = 0; cols < matrix[rows].Length; cols++)
+                        {
+                            Console.Write(matrix[rows][cols]+ " ");
+                        }
+                        Console.WriteLine();
+                    }
+                    break;
+                }
+                else if (comands[0] == "Add")
+                {
+                    int row = int.Parse(comands[1]);
+                    int col = int.Parse(comands[2]);
+                    if (row >= 0 && col >= 0 && row < size && col < matrix[row].Length)
+                    {
+                        int value = int.Parse(comands[3]);
+                        matrix[row][col] += value;
+                    }
+                }
+                else if (comands[0] == "Subtract")
+                {
+                    int row = int.Parse(comands[1]);
+                    int col = int.Parse(comands[2]);
+                    if (row >= 0 && col >= 0 && row < size && col < matrix[row].Length)
+                    {
+                        int value = int.Parse(comands[3]);
+                        matrix[row][col] -= value;
+                    }
+                }
+            }
+        }
+    }
+}
