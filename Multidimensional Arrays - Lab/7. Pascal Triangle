@@ -1,0 +1,35 @@
+sing System;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            int[][] array = new int[size][];
+            for (int rows = 0; rows < size; rows++)
+            {
+                array[rows] = new int[rows + 1];
+                array[rows][0] = 1;
+                if (rows >= 1)
+                {
+                    for (int cols = 1; cols <= rows - 1; cols++)
+                    {
+                        array[rows][cols] = (array[rows - 1][cols - 1] + array[rows - 1][cols]);
+                    }
+                    array[rows][rows] = 1;
+                }
+            }
+            for (int rows = 0; rows < size; rows++)
+            {
+                for (int cols = 0; cols <= rows ; cols++)
+                {
+                    Console.Write(array[rows][cols]+ " ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
