@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionaries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int count = int.Parse(Console.ReadLine());
+            Dictionary<string, Dictionary<string, List<string>>> collection = new Dictionary<string, Dictionary<string, List<string>>>();
+            for (int i = 0; i < count; i++)
+            {
+                string[] input = Console.ReadLine().Split();
+                if(!collection.ContainsKey(input[0]))
+                {
+                    collection.Add(input[0],new Dictionary<string, List<string>>());
+                }
+                 if(!collection[input[0]].ContainsKey(input[1]))
+                {
+                    collection[input[0]].Add(input[1],new List<string>());
+                }
+                collection[input[0]][input[1]].Add(input[2]);
+            }
+            foreach (var item in collection)
+            {
+                Console.WriteLine($"{item.Key}:");
+                foreach (var da in item.Value)
+                {
+                Console.WriteLine(" "+da.Key+ " -> " +string.Join(", ",da.Value));
+                }
+            }
+        }
+    }
+}
