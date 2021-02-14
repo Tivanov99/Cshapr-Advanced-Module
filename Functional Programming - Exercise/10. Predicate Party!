@@ -1,0 +1,162 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FunctionalProgrammingExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> Names = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
+            Predicate<string> StartingWith = x =>
+            {
+                for (int i = 0; i < Names.Count; i++)
+                {
+                    if (Names[i].StartsWith(x))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            };
+            Predicate<string> EndWith = x =>
+            {
+                for (int i = 0; i < Names.Count; i++)
+                {
+                    if (Names[i].EndsWith(x))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            };
+            Predicate<int> LengthPredicete = x =>
+            {
+                for (int i = 0; i < Names.Count; i++)
+                {
+                    if (Names[i].Length == x)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            };
+            Func<List<string>, string, string, string, List<string>> Removing = (N, W, C, T) =>
+             {
+                 List<string> Coppy = N;
+                 switch (T)
+                 {
+                     case "Remove":
+                         switch (W)
+                         {
+                             case "StartsWith":
+                                 for (int i = 0; i < N.Count; i++)
+                                 {
+                                     if (Coppy.Count > 0 && N[i].StartsWith(C))
+                                     {
+                                         Coppy.Remove(N[i]);
+                                     }
+                                 }
+                                 break;
+                             case "EndsWith":
+                                 for (int i = 0; i < N.Count; i++)
+                                 {
+                                     if (Coppy.Count > 0 && N[i].EndsWith(C))
+                                     {
+                                         Coppy.Remove(N[i]);
+                                     }
+                                 }
+                                 break;
+                             case "Length":
+                                 int number = int.Parse(C);
+                                 for (int i = 0; i < N.Count; i++)
+                                 {
+                                     if (Coppy.Count > 0 && N[i].Length == number)
+                                     {
+                                         Coppy.Remove(N[i]);
+                                     }
+                                 }
+                                 break;
+                         }
+                         break;
+                     case "Double":
+                         switch (W)
+                         {
+                             case "StartsWith":
+                                 for (int i = 0; i < N.Count; i++)
+                                 {
+                                     if (Coppy.Count > 0 && N[i].StartsWith(C))
+                                     {
+                                         Coppy.Insert(i + 1, N[i]);
+                                         i += 1;
+                                     }
+                                 }
+                                 break;
+                             case "EndsWith":
+                                 for (int i = 0; i < N.Count; i++)
+                                 {
+                                     if (Coppy.Count > 0 && N[i].EndsWith(C))
+                                     {
+                                         Coppy.Insert(i + 1, N[i]);
+                                         i += 1;
+                                     }
+                                 }
+                                 break;
+                             case "Length":
+                                 int number = int.Parse(C);
+                                 for (int i = 0; i < N.Count; i++)
+                                 {
+                                     if (Coppy.Count > 0 && N[i].Length == number)
+                                     {
+                                         Coppy.Insert(i + 1, N[i]);
+                                         i += 1;
+                                     }
+                                 }
+                                 break;
+                         }
+                         break;
+                 }
+
+
+                 return Coppy;
+             };
+
+            string[] comands = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            while (comands[0] != "Party!")
+            {
+                if (comands[1] == "StartsWith")
+                {
+                    if (StartingWith(comands[2]))
+                    {
+                        Names = Removing(Names, comands[1], comands[2], comands[0]);
+                    }
+                }
+                else if (comands[1] == "EndsWith")
+                {
+                    if (EndWith(comands[2]))
+                    {
+                        Names = Removing(Names, comands[1], comands[2], comands[0]);
+                    }
+                }
+                else if (comands[1] == "Length")
+                {
+                    if (LengthPredicete(int.Parse(comands[2])))
+                    {
+                        Names = Names = Removing(Names, comands[1], comands[2], comands[0]);
+                    }
+                }
+                comands = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            }
+            if (Names.Count > 0)
+            {
+                Console.Write(string.Join(", ", Names));
+                Console.Write(" are going to the party!");
+            }
+            else
+            {
+                Console.WriteLine("Nobody is going to the party!");
+            }
+        }
+    }
+}
