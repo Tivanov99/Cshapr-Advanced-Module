@@ -1,0 +1,122 @@
+using System;
+using System.Linq;
+using System.Text;
+
+namespace ExerciseArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            if (size >= 1)
+            {
+
+                int[,] matrix = new int[size, size];
+                for (int rows = 0; rows < size; rows++)
+                {
+                    int[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                    for (int cols = 0; cols < size; cols++)
+                    {
+                        matrix[rows, cols] = input[cols];
+                    }
+                }
+                string[] boms = Console.ReadLine().Split(' ');
+                for (int i = 0; i < boms.Length; i++)
+                {
+                    bool LeftIsFree = false;
+                    bool RigthIsFree = false;
+                    string[] currValues = boms[i].Split(',').ToArray();
+                    int row = int.Parse(currValues[0]);
+                    int col = int.Parse(currValues[1]);
+                    int valueOfBomb = matrix[row, col];
+                    if (col - 1 >= 0)
+                    {
+                        LeftIsFree = true;
+                        if (matrix[row, col - 1] > 0)
+                        {
+                            matrix[row, col - 1] -= valueOfBomb;
+                        }
+                    }
+                    if (col + 1 < size)
+                    {
+                        RigthIsFree = true;
+                        if (matrix[row, col + 1] > 0)
+                        {
+                            matrix[row, col + 1] -= valueOfBomb;
+                        }
+                    }
+                    if (row - 1 >= 0)
+                    {
+                        if (matrix[row - 1, col] > 0)
+                        {
+                            matrix[row - 1, col] -= valueOfBomb;
+                        }
+                        if (RigthIsFree && matrix[row - 1, col + 1] > 0)
+                        {
+                            matrix[row - 1, col + 1] -= valueOfBomb;
+                        }
+                        if (LeftIsFree && matrix[row - 1, col - 1] > 0)
+                        {
+                            matrix[row - 1, col - 1] -= valueOfBomb;
+                        }
+
+                    }
+                    if (row + 1 < size)
+                    {
+                        if (matrix[row + 1, col] > 0)
+                        {
+                            matrix[row + 1, col] -= valueOfBomb;
+                        }
+                        if (RigthIsFree && matrix[row + 1, col + 1] > 0)
+                        {
+                            matrix[row + 1, col + 1] -= valueOfBomb;
+                        }
+                        if (LeftIsFree && matrix[row + 1, col - 1] > 0)
+                        {
+                            matrix[row + 1, col - 1] -= valueOfBomb;
+                        }
+                    }
+                    matrix[row, col] = 0;
+                }
+                int[] results = AliveCells(matrix, size);
+                Console.WriteLine($"Alive cells: {results[1]}");
+                Console.WriteLine($"Sum: {results[0]}");
+                for (int rows = 0; rows < size; rows++)
+                {
+                    int[] arr = new int[size];
+                    for (int cols = 0; cols < size; cols++)
+                    {
+                        arr[cols] = matrix[rows, cols];
+                    }
+                    Console.WriteLine(string.Join(" ", arr));
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Alive cells: 0");
+                Console.WriteLine($"Sum: 0");
+            }
+        }
+        public static int[] AliveCells(int[,] matrix, int size)
+        {
+            int sum = 0;
+            int count = 0;
+            for (int rows = 0; rows < size; rows++)
+            {
+                for (int cols = 0; cols < size; cols++)
+                {
+                    if (matrix[rows, cols] > 0)
+                    {
+                        sum += matrix[rows, cols];
+                        count++;
+                    }
+                }
+            }
+            int[] results = new int[2];
+            results[0] = sum;
+            results[1] = count;
+            return results;
+        }
+    }
+}
