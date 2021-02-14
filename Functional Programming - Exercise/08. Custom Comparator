@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FunctionalProgrammingExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            Predicate<int> predicate = x => x % 2 == 0;
+            Func<int[], Predicate<int>, List<int>> function = (input, predicate) =>
+              {
+                  List<int> Changers = new List<int>();
+                  List<int> Odds = new List<int>();
+                  foreach (var item in input.OrderBy(x=>x))
+                  {
+
+                      if (predicate(item))
+                      {
+                          Changers.Add(item);
+                      }
+                      else
+                      {
+                          Odds.Add(item); 
+                      }
+                  }
+                  for (int i = 0; i < Odds.Count; i++)
+                  {
+                      Changers.Add(Odds[i]);
+                  }
+                  return Changers;
+              };
+            List<int> Result = function(input, predicate);
+            Console.WriteLine(string.Join(" ", Result));
+        }
+    }
+}
