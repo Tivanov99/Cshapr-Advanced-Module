@@ -1,0 +1,41 @@
+using System;
+using System.Linq;
+
+namespace ExerciseArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] size = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            int count = 0;
+            if (size[0] >= 2 && size[1] >= 2)
+            {
+                char[,] matrix = new char[size[0], size[1]];
+                for (int rows = 0; rows < size[0]; rows++)
+                {
+                    char[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(char.Parse).ToArray();
+                    for (int cols = 0; cols < size[1]; cols++)
+                    {
+                        matrix[rows, cols] = input[cols];
+                    }
+                }
+
+                for (int rows = 0; rows < size[0]; rows++)
+                {
+                    for (int cols = 0; cols < size[1]; cols++)
+                    {
+                        if (rows + 1 < size[0] && cols + 1 < size[1])
+                        {
+                            if(matrix[rows, cols]== matrix[rows + 1, cols] && matrix[rows, cols + 1] == matrix[rows + 1, cols] && matrix[rows + 1, cols + 1] == matrix[rows + 1, cols])
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(count);
+        }
+    }
+}
