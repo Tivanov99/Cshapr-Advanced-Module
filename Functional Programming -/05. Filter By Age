@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Functional_Progrmaming
+{
+    class People
+    {
+        public People(string name, int age)
+        {
+            this.Name = name;
+            this.Age = age;
+        }
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int count = int.Parse(Console.ReadLine());
+            List<People> peoples = new List<People>();
+
+            for (int i = 0; i < count; i++)
+            {
+                string[] input = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries);
+                peoples.Add(new People(input[0], int.Parse(input[1])));
+            }
+            string SoftType = Console.ReadLine();
+            int ages = int.Parse(Console.ReadLine());
+            string Format = Console.ReadLine();
+
+            switch (SoftType)
+            {
+                case "younger":
+                    peoples = Yonger(peoples, ages);
+                    break;
+                case "older":
+                    peoples = Older(peoples, ages);
+                    break;
+            }
+            switch (Format)
+            {
+                case "name":
+                    NameFormat(peoples);
+                    break;
+                case "age":
+                    AgeFormat(peoples);
+                    break;
+                case "name age":
+                    NameAgeFormat(peoples);
+                    break;
+            }
+        }
+        static List<People> Yonger(List<People> peoples, int ages)
+        {
+            List<People> Sorted = new List<People>();
+            foreach (People item in peoples.Where(x => x.Age < ages))
+            {
+                Sorted.Add(item);
+            }
+            return Sorted;
+        }
+        static List<People> Older(List<People> peoples, int ages)
+        {
+            List<People> Sorted = new List<People>();
+            foreach (People item in peoples.Where(x => x.Age >= ages))
+            {
+                Sorted.Add(item);
+            }
+            return Sorted;
+        }
+        static void NameFormat(List<People> Peoples)
+        {
+            foreach (var item in Peoples)
+            {
+                Console.WriteLine(item.Name);
+            }
+        }
+        static void AgeFormat(List<People> Peoples)
+        {
+            foreach (var item in Peoples)
+            {
+                Console.WriteLine(item.Age);
+            }
+        }
+        static void NameAgeFormat(List<People> Peoples)
+        {
+            foreach (var item in Peoples)
+            {
+                Console.WriteLine($"{item.Name} - {item.Age}");
+            }
+        }
+    }
+}
