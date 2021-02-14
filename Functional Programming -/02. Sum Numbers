@@ -1,0 +1,17 @@
+using System;
+using System.Linq;
+
+namespace Functional_Progrmaming
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            Func<string, int> Parser = p => int.Parse(p);
+            int[] result = input.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Select(Parser).ToArray();
+            Console.WriteLine(result.Length);
+            Console.WriteLine(result.Sum());
+        }
+    }
+}
