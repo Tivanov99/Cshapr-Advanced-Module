@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FunctionalProgrammingExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int length = int.Parse(Console.ReadLine());
+            List<string> input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+            Predicate<string> predicate = x => x.Length <= length;
+            Func<List<string>, int, Predicate<string>, List<string>> func = (input, length, predicate) =>
+               {
+                   List<string> List = new List<string>();
+                   for (int i = 0; i < input.Count; i++)
+                   {
+                       if (predicate(input[i]))
+                       {
+                           List.Add(input[i]);
+                       }
+                   }
+                   return List;
+               };
+            List<string> list = func(input,length,predicate);
+            Console.WriteLine(string.Join("\n",list));
+        }
+    }
+}
