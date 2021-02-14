@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FunctionalProgrammingExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> input = Console.ReadLine().Split().Select(int.Parse).ToList();
+            int start = input[0];
+            int end = input[1];
+            string comand = Console.ReadLine();
+            Func<int, int, List<int>> func = (start, end) =>
+              {
+                  List<int> list = new List<int>();
+                  for (int i = start; i <= end; i++)
+                  {
+                      list.Add(i);
+                  }
+                  return list;
+              };
+            Predicate<int> predicate = n => true;
+            List<int> GenerateSquence = func(start, end);
+
+            if (comand == "odd")
+            {
+                predicate = n => n % 2 != 0;
+            }
+            else
+            {
+                predicate = n => n % 2 == 0;
+            }
+            Console.WriteLine(string.Join(" ", MyWhere(GenerateSquence, predicate)));
+        }
+        static List<int> MyWhere(List<int> input, Predicate<int> predicate)
+        {
+            List<int> list = new List<int>();
+            foreach (var item in input)
+            {
+                if (predicate(item))
+                {
+                    list.Add(item);
+                }
+            }
+            return list;
+        }
+    }
+}
