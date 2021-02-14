@@ -1,0 +1,36 @@
+using System;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            int[,] matrix = new int[size, size];
+
+            int leftsum = 0;
+            int rightsum = 0;
+            for (int row = 0; row < size; row++)
+            {
+                int[] input = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                for (int col = 0; col < size; col++)
+                {
+                    matrix[row, col] = input[col];
+                }
+            }
+            int count = size - 1;
+            for (int row = 0; row < size; row++)
+            {
+                for (int col = row; col <= row; col++)
+                {
+                    leftsum += matrix[row, col];
+                    rightsum += matrix[row, count];
+                    count--;
+                }
+            }
+            Console.WriteLine(Math.Abs(leftsum-rightsum));
+        }
+    }
+}
