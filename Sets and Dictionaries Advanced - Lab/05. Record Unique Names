@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionaries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int num = int.Parse(Console.ReadLine());
+            HashSet<string> collection = new HashSet<string>();
+            for (int i = 0; i < num; i++)
+            {
+                string names = Console.ReadLine();
+                collection.Add(names);
+            }
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+}
