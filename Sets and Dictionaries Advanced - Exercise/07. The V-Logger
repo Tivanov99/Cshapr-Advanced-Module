@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionariesExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, Dictionary<string, SortedSet<string>>> result = new Dictionary<string, Dictionary<string, SortedSet<string>>>();
+            string[] input = Console.ReadLine().Split();
+            while (input[0] != "Statistics")
+            {
+                string VloggerName = input[0];
+                if (input[1] == "followed")
+                {
+                    string Follwer = input[0];
+                    string Follwed = input[2];
+                    if (result.ContainsKey(Follwer) && result.ContainsKey(Follwed) && Follwer != Follwed)
+                    {
+                        if (!result[Follwer].ContainsKey(Follwed))
+                        {
+                            result[Follwer]["following"].Add(Follwed);
+                            result[Follwed]["followers"].Add(Follwer);
+                        }
+                    }
+                }
+                else if (input[1] == "joined" && !result.ContainsKey(input[0]))
+                {
+                    result[VloggerName] = new Dictionary<string, SortedSet<string>>();
+                    result[VloggerName].Add("followers", new SortedSet<string>());
+                    result[VloggerName].Add("following", new SortedSet<string>());
+                }
+                input = Console.ReadLine().Split();
+            }
+            Console.WriteLine($"The V-Logger has a total of {result.Count} vloggers in its logs.");
+            Dictionary<string, Dictionary<string, SortedSet<string>>> Sorted =
+                result.OrderByDescending(kpv => kpv.Value["followers"].Count).ThenBy(kpv => kpv.Value["following"].Count).ToDictionary(kpv => kpv.Key, kpv => kpv.Value);
+            int count = 1;
+            foreach (var item in Sorted)
+            {
+                Console.WriteLine($"{count}. {item.Key} : {item.Value["followers"].Count} followers, {item.Value["following"].Count} following");
+                if (count == 1)
+                {
+                    foreach (var da in item.Value["followers"])
+                    {
+                        Console.WriteLine($"*  {da}");
+                    }
+                }
+                count++;
+            }
+        }
+    }
+}
