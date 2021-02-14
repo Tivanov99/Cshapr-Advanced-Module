@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionariesExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, Dictionary<string, int>> result = new Dictionary<string, Dictionary<string, int>>();
+            int count = int.Parse(Console.ReadLine());
+            for (int i = 0; i < count; i++)
+            {
+                string[] input = Console.ReadLine().Split(" -> ");
+                if (!result.ContainsKey(input[0]))
+                {
+                    result.Add(input[0], new Dictionary<string, int>());
+                }
+                string [] elements = input[1].Split(",").ToArray();
+                for (int j = 0; j < elements.Length; j++)
+                {
+                    if (!result[input[0]].ContainsKey(elements[j]))
+                    {
+                        result[input[0]].Add(elements[j], 1);
+                    }
+                    else
+                    {
+                        result[input[0]][elements[j]]++;
+                    }
+                }
+            }
+            string[] FoundingItem = Console.ReadLine().Split();
+            foreach (var item in result)
+            {
+                Console.WriteLine($"{item.Key} clothes:");
+                foreach (var curritems in item.Value)
+                {
+                    Console.Write($"* {curritems.Key} - {curritems.Value}");
+                    if (item.Key == FoundingItem[0] && FoundingItem[1] == curritems.Key)
+                    {
+                        Console.Write(" (found!)");
+                    }
+                    Console.WriteLine();
+                }
+            }
+        }
+    }
+}
