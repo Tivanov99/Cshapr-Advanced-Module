@@ -1,0 +1,27 @@
+using System;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            int[,] matrix = new int[size, size];
+            int currPosition = 0;
+            int sum = 0;
+            for (int rows = 0; rows < size; rows++)
+            {
+                int[] input = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                for (int cols = 0; cols < size; cols++)
+                {
+                    matrix[rows, cols] = input[cols];
+                }
+               sum += matrix[rows, currPosition];
+                currPosition++;
+            }
+            Console.WriteLine(sum);
+        }
+    }
+}
