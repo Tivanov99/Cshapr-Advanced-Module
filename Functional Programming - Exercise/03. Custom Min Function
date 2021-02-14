@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FunctionalProgrammingExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            Func<int[], int> result = x =>
+            {
+                int minNum = int.MaxValue;
+                for (int i = 0; i < x.Length; i++)
+                {
+                    if (x[i] < minNum)
+                    {
+                        minNum = x[i];
+                    }
+                }
+                return minNum;
+            };
+            int da = result(input);
+            Console.WriteLine(da);
+        }
+    }
+}
