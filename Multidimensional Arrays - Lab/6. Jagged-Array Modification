@@ -1,0 +1,86 @@
+using System;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            int[][] array = new int[size][];
+            for (int rows = 0; rows < size; rows++)
+            {
+                int[] input = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                array[rows] = new int[input.Length];
+                for (int cols = 0; cols < size; cols++)
+                {
+                    array[rows][cols] = input[cols];
+                }
+            }
+            int Row = 0;
+            int Col = 0;
+            int Value = 0;
+            while (true)
+            {
+                string[] comands = Console.ReadLine().Split();
+                if (comands[0] == "END")
+                {
+                    for (int rows = 0; rows < size; rows++)
+                    {
+                        for (int cols = 0; cols < size; cols++)
+                        {
+                            Console.Write(array[rows][cols] + " ");
+                        }
+                        Console.WriteLine();
+                    }
+                    break;
+                }
+                else if (comands[0] == "Add")
+                {
+                    Row = int.Parse(comands[1]);
+                    Col = int.Parse(comands[2]);
+                    Value = int.Parse(comands[3]);
+                    if (Row >= 0 && Row <= array.Length && Col >= 0 && Col <= array.Length)
+                    {
+                        if (Row == array.Length)
+                        {
+                            Row--;
+                        }
+                        if (Col == array.Length)
+                        {
+                            Col--;
+                        }
+                        array[Row][Col] += Value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid coordinates");
+                    }
+                }
+                else if (comands[0] == "Subtract")
+                {
+                    Row = int.Parse(comands[1]);
+                    Col = int.Parse(comands[2]);
+                    Value = int.Parse(comands[3]);
+                    if (Row >= 0 && Row <= array.Length && Col >= 0 && Col <= array.Length)
+                    {
+                        if (Row == array.Length)
+                        {
+                            Row--;
+                        }
+                        if (Col == array.Length)
+                        {
+                            Col--;
+                        }
+                        array[Row][Col] -= Value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid coordinates");
+                    }
+                }
+            }
+        }
+    }
+}
