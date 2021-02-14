@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FunctionalProgrammingExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = int.Parse(Console.ReadLine());
+            int[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            Predicate<int> predicate = x =>
+            {
+                int currNum = x;
+                for (int i = 0; i < input.Length; i++)
+                {
+                    if (currNum % input[i] != 0)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            };
+            List<int> nums = new List<int>();
+            for (int i = 1; i <= number; i++)
+            {
+                if (predicate(i))
+                {
+                    nums.Add(i);
+                }
+            }
+            Console.WriteLine(string.Join(" ",nums));
+        }
+    }
+}
