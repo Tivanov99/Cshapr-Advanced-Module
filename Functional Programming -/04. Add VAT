@@ -1,0 +1,20 @@
+using System;
+using System.Linq;
+
+namespace Functional_Progrmaming
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            Func<string, double> Parser = n => double.Parse(n) * 1.2;
+            double[] Nums = input.Split(", ").Select(Parser).ToArray();
+
+            foreach (var item in Nums)
+            {
+                Console.WriteLine($"{item:f2}");
+            }
+        }
+    }
+}
