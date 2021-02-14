@@ -1,0 +1,52 @@
+using System;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] size = Console.ReadLine().Split(", ").Select(int.Parse).ToArray();
+            int Rows = size[0];
+            int Cols = size[1];
+            int[,] matrix = new int[Rows, Cols];
+            for (int rows = 0; rows < Rows; rows++)
+            {
+                size = Console.ReadLine().Split(", ").Select(int.Parse).ToArray();
+                for (int cols = 0; cols < Cols; cols++)
+                {
+                    matrix[rows, cols] = size[cols];
+                }
+            }
+            int bextSum = int.MinValue;
+            int StartRows = 0;
+            int LastColl = 0;
+            for (int rows = 0; rows < Rows; rows++)
+            {
+                for (int cols = 0; cols < Cols; cols++)
+                {
+                    if (rows + 1 <= Rows - 1 && cols + 1 <= Cols - 1)
+                    {
+                        int currsum = (matrix[rows, cols] + matrix[rows + 1, cols] + matrix[rows, cols + 1] + matrix[rows + 1, cols + 1]);
+                        if (currsum > bextSum)
+                        {
+                            StartRows = rows;
+                            LastColl = cols + 1;
+                            bextSum = currsum;
+                        }
+                    }
+                }
+            }
+            for (int row = StartRows; row <= StartRows + 1; row++)
+            {
+                for (int col = LastColl - 1; col <= LastColl; col++)
+                {
+                    Console.Write(matrix[row, col] + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine(bextSum);
+        }
+    }
+}
