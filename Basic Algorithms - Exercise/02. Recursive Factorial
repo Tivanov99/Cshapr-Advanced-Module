@@ -1,0 +1,22 @@
+using System;
+using System.Linq;
+
+namespace Basic_Algorithms___Exercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int input = int.Parse(Console.ReadLine());
+            Console.WriteLine(Sum(input));
+        }
+        static public int Sum(int index)
+        {
+            if (index == 1)
+            {
+                return 1;
+            }
+            return index * Sum(index - 1);
+        }
+    }
+}
