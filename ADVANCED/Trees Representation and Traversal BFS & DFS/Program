@@ -1,0 +1,3 @@
+Tree<int>[] childs = new Tree<int>[] { new Tree<int>(2, new Tree<int>[] { new Tree<int>(5), new Tree<int>(6) }), new Tree<int>(3, new Tree<int>[] { new Tree<int>(7), new Tree<int>(8) }), new Tree<int>(4, new Tree<int>[] { new Tree<int>(9), new Tree<int>(10) }) };
+            Tree<int> Tree = new Tree<int>(1, childs);
+            Tree.Swap(2, 4);
