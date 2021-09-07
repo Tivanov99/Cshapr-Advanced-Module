@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+
+namespace MaxHeap
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //var integerHeap = new MaxHeap<int>();
+            //var elements = new List<int>() { 15, 6, 9, 5, 25, 8, 17, 16 };
+            //foreach (var el in elements)
+            //{
+            //    integerHeap.Add(el);
+            //}
+            //Console.WriteLine(integerHeap.Peek());
+
+            var integerHeap = new MaxHeap<int>();
+            var elements = new List<int>() { 15, 25, 6, 9, 5, 8, 17, 16 };
+            foreach (var el in elements)
+            {
+                integerHeap.Add(el);
+            }
+            Console.WriteLine(integerHeap.Size);
+        }
+    }
+}
