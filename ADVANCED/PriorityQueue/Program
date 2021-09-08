@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+
+namespace PriorityQueue
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var queue = new PriorityQueue<int>();
+            var elements = new List<int>() { 15, 25, 6, 9, 5, 8, 17, 16 };
+            foreach (var element in elements)
+            {
+                queue.Add(element);
+            }
+            int[] expected = { 25, 17, 16, 15, 9, 8, 6, 5 };
+            int index = 0;
+            Console.WriteLine(queue.Size);
+            while (queue.Size != 0)
+            {
+                Console.WriteLine($"{expected[index++]} remove is : {queue.Dequeue()}");
+            }
+        }
+    }
+}
