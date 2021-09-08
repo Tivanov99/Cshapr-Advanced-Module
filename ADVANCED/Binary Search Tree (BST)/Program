@@ -1,0 +1,42 @@
+using System;
+
+namespace _5.BinarySearchTree
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            IAbstractBinarySearchTree<int> _bst = new BinarySearchTree<int>();
+            _bst.Insert(12);
+            _bst.Insert(21);
+            _bst.Insert(5);
+            _bst.Insert(1);
+            _bst.Insert(8);
+            _bst.Insert(18);
+            _bst.Insert(23);
+
+            //var root = _bst.Root;
+            //var left = root.LeftChild;
+            //var left_left = left.LeftChild;
+            //var left_right = left.RightChild;
+
+            //Console.WriteLine($"12 vs {root.Value}");
+            //Console.WriteLine($"5 vs {left.Value}");
+            //Console.WriteLine($"1 vs {left_left.Value}");
+            //Console.WriteLine($"8 vs {left_right.Value}");
+
+            var searched = _bst.Search(5);
+            var root = searched.Root;
+            var left = searched.LeftChild;
+            var right = searched.RightChild;
+
+            Console.WriteLine($"5 vs {root.Value}");
+            Console.WriteLine($"1 vs {left.Value}");
+            Console.WriteLine($"8 vs {right.Value}");
+
+
+
+
+        }
+    }
+}
