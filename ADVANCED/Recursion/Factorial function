@@ -1,0 +1,36 @@
+using System;
+
+namespace Recursion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int input = int.Parse(Console.ReadLine());
+            Console.WriteLine(Sum(input));
+        }
+        //static int Sum(int[] arr, int index)
+        //{
+        //    if (index == arr.Length)
+        //    {
+        //        return 0;
+        //    }
+        //    Console.WriteLine("Before entering recursive methood");
+        //    int CurrentSumInvoked = Sum(arr, index + 1);
+        //    int CurrentSum = arr[index] + CurrentSumInvoked;
+        //    Console.WriteLine(CurrentSum);
+        //    Console.WriteLine("After entering recursive methood");
+        //    return CurrentSum;
+        //}
+        static int Sum(int num)
+        {
+            if (num == 0)
+            {
+                return 1;
+            }
+
+            int currSum = Sum(num - 1);
+            return currSum * num;
+        }
+    }
+}
