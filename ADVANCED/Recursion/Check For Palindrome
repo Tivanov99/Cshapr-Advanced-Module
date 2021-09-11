@@ -1,0 +1,33 @@
+using System;
+
+namespace Recursion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            printer(input, 0, input.Length - 1);
+            Console.WriteLine("Is Palindrome");
+        }
+
+        static void printer(string input, int index, int endIndex)
+        {
+            if (index == input.Length)
+            {
+                return;
+            }
+            printer(input, index + 1, endIndex - 1);
+            if (input[index] != input[endIndex])
+            {
+                PrintResult("is not");
+                Environment.Exit(0);
+            }
+            return;
+        }
+        static void PrintResult(string result)
+        {
+            Console.WriteLine(result);
+        }
+    }
+}
