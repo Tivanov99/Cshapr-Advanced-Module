@@ -1,0 +1,71 @@
+using System;
+
+namespace Maze
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            string[,] maze = CreateMaze(size);
+            maze[1, 1] = "|";
+            maze[3, 1] = "|";
+            bool[,] Positions = new bool[size, size];
+            EscapeTheMaze(maze, 0, 0, "", Positions);
+        }
+        static string[,] CreateMaze(int size)
+        {
+            string[,] maze = new string[size, size];
+            for (int row = 0; row < maze.GetLength(0); row++)
+            {
+                for (int col = 0; col < maze.GetLength(1); col++)
+                {
+                    maze[row, col] = "_";
+                    if (row == 2 && col == 3)
+                    {
+                        maze[row, col] = "e";
+                    }
+                }
+            }
+            return maze;
+        }
+        static void EscapeTheMaze(string[,] matrix, int row, int col, string Path, bool[,] Positions)
+        {
+            Positions[row, col] = true;
+            if (matrix[row, col] == "e")
+            {
+                Console.WriteLine(Path);
+                Positions[2, 3] = false;
+                EscapeTheMaze(matrix, 0, 0, "", Positions);
+            }
+            if (IsSafe(matrix, row + 1, col, Positions))
+            {
+                EscapeTheMaze(matrix, row + 1, col, Path + "D", Positions);
+            }
+            if (IsSafe(matrix, row - 1, col, Positions))
+            {
+                EscapeTheMaze(matrix, row - 1, col, Path + "U", Positions);
+            }
+            if (IsSafe(matrix, row, col + 1, Positions))
+            {
+                EscapeTheMaze(matrix, row, col + 1, Path + "R", Positions);
+            }
+            if (IsSafe(matrix, row, col - 1, Positions))
+            {
+                EscapeTheMaze(matrix, row, col - 1, Path + "L", Positions);
+            }
+        }
+        static bool IsSafe(string[,] matrix, int row, int col, bool[,] positions)
+        {
+            if (row < 0 || col < 0 || row == matrix.GetLength(0) || col == matrix.GetLength(1))
+            {
+                return false;
+            }
+            if (matrix[row, col] == "|" || positions[row, col])
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+}
