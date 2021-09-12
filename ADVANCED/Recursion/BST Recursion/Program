@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+
+namespace BST_Printer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Binary_Search_Tree<int> BST = new Binary_Search_Tree<int>(new Node<int>(17,
+                new Node<int>(9, new Node<int>(3), new Node<int>(11)),
+                new Node<int>(25, new Node<int>(20), new Node<int>(31))));
+            Console.WriteLine(BST.Root.LeftChild.Value);
+            Console.WriteLine(BST.Root.RightChild.Value);
+
+            BST.AddElement(100);
+            Node<int> searchedNode = BST.SearchNode(17);
+            BST.Printer(searchedNode, new List<int>());
+            BST.Printer(searchedNode, new List<int>());
+            BST.DFS(searchedNode, new List<int>());
+        }
+
+    }
+}
