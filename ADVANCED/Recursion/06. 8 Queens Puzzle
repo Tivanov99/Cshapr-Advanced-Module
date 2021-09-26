@@ -1,0 +1,177 @@
+using System;
+using System.Linq;
+
+namespace Recursion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[,] matrix = new int[8, 8];
+            Moving(matrix, 0, 0);
+        }
+        //static void Generating(int[] numbers, int[] vector, int index, int border)
+        //{
+        //    if (index == vector.Length)
+        //    {
+        //        Console.WriteLine(string.Join(" ", vector));
+        //        return;
+        //    }
+        //    for (int i = border; i < numbers.Length; i++)
+        //    {
+        //        vector[index] = numbers[i];
+        //        Generating(numbers, vector, index + 1, i + 1);
+        //    }
+        //}
+        //static void Generating(int[] numbers, int[] collection, int index, int childIndex)
+        //{
+        //    if (collection.Length == index)
+        //    {
+        //        Console.WriteLine(string.Join(" ", collection));
+        //        return;
+        //    }
+        //    for (int i = childIndex; i < numbers.Length; i++)
+        //    {
+        //        collection[index] = numbers[i];
+        //        Generating(numbers, collection, index + 1, i + 1);
+        //    }
+        //}
+
+        static void PrintMatrix(int[,] matrix)
+        {
+            Console.WriteLine("new matrix");
+            for (int Row = 0; Row < matrix.GetLength(0); Row++)
+            {
+                for (int Col = 0; Col < matrix.GetLength(0); Col++)
+                {
+                    Console.Write(matrix[Row, Col] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        static void Moving(int[,] table, int StartRow, int StartCol)
+        {
+            for (int row = StartRow; row < table.GetLength(0); row++)
+            {
+                for (int col = StartCol; col < table.GetLength(0); col++)
+                {
+                    if (IsSafe(table, row, col))
+                    {
+                        table[row, col] = 1;
+                        Moving(table, row + 1, 0);
+                        PrintMatrix(table);
+                    }
+                }
+                return;
+            }
+        }
+        static bool IsSafe(int[,] table, int row, int col)
+        {
+            //CHECK ROWS UP
+            if (row - 1 >= 0)
+            {
+                for (int CheckRowUP = row; CheckRowUP >= 0; CheckRowUP--)
+                {
+                    if (table[CheckRowUP, col] == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            //check ROWS DOWN
+            if (row + 1 < table.GetLength(0) - 1)
+            {
+                for (int CheckRowDown = row; CheckRowDown < table.GetLength(0); CheckRowDown++)
+                {
+                    if (table[CheckRowDown, col] == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            //check right
+            if (col + 1 < table.GetLength(0) - 1)
+            {
+                for (int CheckColRight = col; CheckColRight < table.GetLength(0); CheckColRight++)
+                {
+                    if (table[row, CheckColRight] == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            //check Left
+            if (col - 1 >= 0)
+            {
+                for (int CheckColLeft = col; CheckColLeft >= 0; CheckColLeft--)
+                {
+                    if (table[row, CheckColLeft] == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            //check right down diagonal
+            if (row + 1 < table.GetLength(0) - 1 && col + 1 < table.GetLength(0) - 1)
+            {
+                int CurrentRow = row;
+                int CurrentCol = col;
+                while (CurrentRow < table.GetLength(0) && CurrentCol < table.GetLength(0))
+                {
+                    if (table[CurrentRow, CurrentCol] == 1)
+                    {
+                        return false;
+                    }
+                    CurrentRow++;
+                    CurrentCol++;
+                }
+            }
+            //check right up diagonal
+            if (row - 1 >= 0 && col + 1 < table.GetLength(0) - 1)
+            {
+                int CurrentRow = row;
+                int CurrentCol = col;
+                while (CurrentRow >= 0 && CurrentCol < table.GetLength(0))
+                {
+                    if (table[CurrentRow, CurrentCol] == 1)
+                    {
+                        return false;
+                    }
+                    CurrentRow--;
+                    CurrentCol++;
+                }
+            }
+            //check left down diagonal
+            if (row + 1 < table.GetLength(0) - 1 && col - 1 >= 0)
+            {
+                int CurrentRow = row;
+                int CurrentCol = col;
+                while (CurrentRow < table.GetLength(0) && CurrentCol >= 0)
+                {
+                    if (table[CurrentRow, CurrentCol] == 1)
+                    {
+                        return false;
+                    }
+                    CurrentRow++;
+                    CurrentCol--;
+                }
+            }
+            //check left up diagonal
+            if (row - 1 >= 0 && col - 1 >= 0)
+            {
+                int CurrentRow = row;
+                int CurrentCol = col;
+                while (CurrentRow >= 0 && CurrentCol >= 0)
+                {
+                    if (table[CurrentRow, CurrentCol] == 1)
+                    {
+                        return false;
+                    }
+                    CurrentRow--;
+                    CurrentCol--;
+                }
+            }
+            return true;
+        }
+    }
+}
