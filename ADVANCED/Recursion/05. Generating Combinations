@@ -1,0 +1,30 @@
+using System;
+using System.Linq;
+
+namespace Recursion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = Console.ReadLine().Split(" ").Select(x => int.Parse(x)).ToArray();
+            int number = int.Parse(Console.ReadLine());
+            int[] array = new int[number];
+
+            Generating(numbers, array, 0, 0);
+        }
+        static void Generating(int[] numbers, int[] vector, int index, int border)
+        {
+            if (index == vector.Length)
+            {
+                Console.WriteLine(string.Join(" ", vector));
+                return;
+            }
+            for (int i = border; i < numbers.Length; i++)
+            {
+                vector[index] = numbers[i];
+                Generating(numbers, vector, index + 1, i + 1);
+            }
+        }
+    }
+}
