@@ -1,0 +1,23 @@
+using System;
+using System.Linq;
+
+namespace Recursion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] array = Console.ReadLine().Split(" ").Select(x => int.Parse(x)).ToArray();
+            Console.WriteLine(Sum(array, 0));
+        }
+        private static int Sum(int[] array, int index)
+        {
+            if (array.Length - 1 == index)
+            {
+                return array[index];
+            }
+            int currNum = Sum(array, index + 1);
+            return array[index] + currNum;
+        }
+    }
+}
